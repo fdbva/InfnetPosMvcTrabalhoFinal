@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InfnetPos.Mvc.TrabalhoFinal.Domain.Service\InfnetPos.Mvc.TrabalhoFinal.Domain.Service.csproj" />
+    <ProjectReference Include="..\InfnetPos.Mvc.TrabalhoFinal.Infrastructure.Data\InfnetPos.Mvc.TrabalhoFinal.Infrastructure.Data.csproj" />
+  </ItemGroup>
+
+</Project>
