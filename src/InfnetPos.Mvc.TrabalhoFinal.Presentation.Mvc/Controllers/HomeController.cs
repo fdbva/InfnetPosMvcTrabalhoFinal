@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using System.Diagnostics;
 using InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc.Controllers
 {
@@ -37,7 +33,7 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
     }
 }

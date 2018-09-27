@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc.HttpClients.Interfaces;
+using InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,12 +12,12 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -33,6 +31,10 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            NativeInjectorBootstrapper.RegisterServices(services);
+            services.AddHttpClient<IQuestionClient>();
+            services.AddAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

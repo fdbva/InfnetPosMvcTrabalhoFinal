@@ -1,5 +1,3 @@
-using System;
-
 namespace InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc.Models
 {
     public class ErrorViewModel

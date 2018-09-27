@@ -7,12 +7,12 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Domain.Model.Interfaces.Repositories
 {
     public interface IBaseRepository<TEntity> where TEntity : BaseEntity
     {
-        Task<TEntity> AddAsync(TEntity obj);
+        Task<TEntity> AddAsync(TEntity tEntity);
         Task<TEntity> FindAsync(Guid id);
         Task<IEnumerable<TEntity>> GetAllAsNoTrackingAsync();
-        TEntity Update(TEntity obj);
+        TEntity Update(TEntity tEntity);
         Task RemoveAsync(Guid id);
-        void Remove(TEntity obj);
+        void Remove(TEntity tEntity);
         void Dispose();
     }
 }

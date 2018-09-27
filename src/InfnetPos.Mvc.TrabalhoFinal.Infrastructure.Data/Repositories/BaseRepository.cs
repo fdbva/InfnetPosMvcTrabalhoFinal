@@ -5,60 +5,67 @@ using InfnetPos.Mvc.TrabalhoFinal.Domain.Model.Entities;
 using InfnetPos.Mvc.TrabalhoFinal.Domain.Model.Interfaces.Repositories;
 using InfnetPos.Mvc.TrabalhoFinal.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Extensions.Internal;
 
 namespace InfnetPos.Mvc.TrabalhoFinal.Infrastructure.Data.Repositories
 {
-    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity>, IDisposable where TEntity : BaseEntity
     {
-        protected EvaluationContext Ctx;
-        protected DbSet<TEntity> DbSet;
+        protected EvaluationContext Ctx { get; }
+        protected DbSet<TEntity> Set { get; }
 
         public BaseRepository(EvaluationContext context)
         {
             Ctx = context;
-            DbSet = Ctx.Set<TEntity>();
+            Set = Ctx.Set<TEntity>();
         }
 
-        public virtual async Task<TEntity> AddAsync(TEntity obj)
+        public virtual async Task<TEntity> AddAsync(TEntity tEntity)
         {
-            var entity = await DbSet.AddAsync(obj);
+            var entity = await Set.AddAsync(tEntity);
             return entity.Entity;
         }
 
         public virtual async Task<TEntity> FindAsync(Guid id)
         {
-            return await DbSet.FindAsync(id);
+            return await Set.FindAsync(id);
         }
 
         public virtual async Task<IEnumerable<TEntity>> GetAllAsNoTrackingAsync()
         {
-            return await DbSet.AsNoTracking().ToListAsync();
+            return await Set.AsNoTracking().ToListAsync();
         }
 
-        public virtual TEntity Update(TEntity obj)
+        public virtual TEntity Update(TEntity tEntity)
         {
-            var entry = Ctx.Entry(obj);
-            DbSet.Attach(obj);
+            var entry = Ctx.Entry(tEntity);
+            Set.Attach(tEntity);
             entry.State = EntityState.Modified;
 
-            return obj;
+            return tEntity;
         }
 
-        public virtual void Remove(TEntity obj)
+        public virtual void Remove(TEntity tEntity)
         {
-            DbSet.Remove(obj);
+            Set.Remove(tEntity);
         }
 
         public virtual async Task RemoveAsync(Guid id)
         {
-            DbSet.Remove(await DbSet.FindAsync(id));
+            Set.Remove(await Set.FindAsync(id));
         }
 
         public void Dispose()
         {
-            Ctx.Dispose();
+            Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Ctx?.Dispose();
+            }
         }
     }
 }

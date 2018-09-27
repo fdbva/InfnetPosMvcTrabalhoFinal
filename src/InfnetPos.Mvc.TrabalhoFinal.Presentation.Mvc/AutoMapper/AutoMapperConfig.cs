@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace InfnetPos.Mvc.TrabalhoFinal.Application.WebApi.AutoMapper
+namespace InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc.AutoMapper
 {
     public static class AutoMapperConfig
     {

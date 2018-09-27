@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using InfnetPos.Mvc.TrabalhoFinal.Application.WebApi.AutoMapper;
 using InfnetPos.Mvc.TrabalhoFinal.Domain.Model.Entities;
 using InfnetPos.Mvc.TrabalhoFinal.Domain.Model.Interfaces.Services;
 using InfnetPos.Mvc.TrabalhoFinal.Domain.Model.Interfaces.UnitOfWork;
-using InfnetPos.Mvc.TrabalhoFinal.SharedViewModels.ViewModels;
+using InfnetPos.Mvc.TrabalhoFinal.SharedViewModels.ApiResponses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,28 +14,28 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Application.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BaseCrudController<TIService, TEntity, TEntityViewModel> 
+    public class BaseCrudController<TIService, TEntity, TEntityViewModel>
         : ControllerBase
         where TEntity : BaseEntity
-        where TEntityViewModel : BaseViewModel
+        where TEntityViewModel : BaseResponse
         where TIService : IBaseService<TEntity>
     {
-        protected readonly TIService BaseService;
-        protected readonly IUnitOfWork Uow;
-        protected readonly IMapper Mapper;
+        protected TIService BaseService { get; }
+        protected IUnitOfWork Uow { get; }
+        protected IMapper Mapper1 { get; }
 
         public BaseCrudController(TIService baseService, IUnitOfWork uow, IMapper autoMapper)
         {
             BaseService = baseService;
             Uow = uow;
-            Mapper = autoMapper;
+            Mapper1 = autoMapper;
         }
 
         // GET api/values
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TEntityViewModel>>> Get()
         {
-            return Mapper
+            return Mapper1
                 .Map<IEnumerable<TEntityViewModel>>(
                     await BaseService.GetAllAsNoTrackingAsync())
                 .ToList();
@@ -59,7 +57,7 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Application.WebApi.Controllers
                 return NotFound();
             }
 
-            return Ok(Mapper.Map<TEntityViewModel>(entityViewModel));
+            return Ok(Mapper1.Map<TEntityViewModel>(entityViewModel));
         }
 
         // POST api/values
@@ -71,12 +69,12 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Application.WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var ret = BaseService.AddAsync(Mapper.Map<TEntity>(viewModel));
+            var ret = BaseService.AddAsync(Mapper1.Map<TEntity>(viewModel));
             await Uow.CommitAsync();
 
-            var retViewModel = Mapper.Map<TEntityViewModel>(ret);
+            var retViewModel = Mapper1.Map<TEntityViewModel>(ret);
 
-            return CreatedAtAction(nameof(Get), new { id = retViewModel.Id }, retViewModel);
+            return CreatedAtAction(nameof(Get), new {id = retViewModel.Id}, retViewModel);
         }
 
         // PUT api/values/5
@@ -96,7 +94,7 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Application.WebApi.Controllers
             try
             {
                 Uow.BeginTransaction();
-                BaseService.Update(Mapper.Map<TEntity>(viewModel));
+                BaseService.Update(Mapper1.Map<TEntity>(viewModel));
                 Uow.Commit();
             }
             catch (DbUpdateException)
@@ -128,7 +126,7 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Application.WebApi.Controllers
             }
 
             Uow.BeginTransaction();
-            var entity = Mapper.Map<TEntity>(entityViewModel);
+            var entity = Mapper1.Map<TEntity>(entityViewModel);
             BaseService.Remove(entity);
             await Uow.CommitAsync();
 

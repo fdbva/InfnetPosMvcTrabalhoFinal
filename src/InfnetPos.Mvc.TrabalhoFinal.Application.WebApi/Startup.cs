@@ -1,28 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Evaluation.Infrastructure.CrossCutting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace InfnetPos.Mvc.TrabalhoFinal.Application.WebApi
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)

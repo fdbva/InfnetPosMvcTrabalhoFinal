@@ -16,9 +16,9 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Domain.Service.Services
             _repository = repository;
         }
 
-        public virtual async Task<TEntity> AddAsync(TEntity obj)
+        public virtual async Task<TEntity> AddAsync(TEntity tEntity)
         {
-            return await _repository.AddAsync(obj);
+            return await _repository.AddAsync(tEntity);
         }
 
         public virtual async Task<TEntity> FindAsync(Guid id)
@@ -31,9 +31,9 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Domain.Service.Services
             return _repository.GetAllAsNoTrackingAsync();
         }
 
-        public virtual TEntity Update(TEntity obj)
+        public virtual TEntity Update(TEntity tEntity)
         {
-            return _repository.Update(obj);
+            return _repository.Update(tEntity);
         }
 
         public virtual async Task RemoveAsync(Guid id)
@@ -41,9 +41,9 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Domain.Service.Services
             await _repository.RemoveAsync(id);
         }
 
-        public virtual void Remove(TEntity obj)
+        public virtual void Remove(TEntity tEntity)
         {
-            _repository.Remove(obj);
+            _repository.Remove(tEntity);
         }
 
         public virtual void Dispose()

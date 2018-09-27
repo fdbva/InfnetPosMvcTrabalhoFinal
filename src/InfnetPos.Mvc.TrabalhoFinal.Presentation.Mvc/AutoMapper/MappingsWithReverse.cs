@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
-using InfnetPos.Mvc.TrabalhoFinal.Domain.Model.Entities;
+using InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc.ViewModels;
 using InfnetPos.Mvc.TrabalhoFinal.SharedViewModels.ApiResponses;
 
-namespace InfnetPos.Mvc.TrabalhoFinal.Application.WebApi.AutoMapper
+namespace InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc.AutoMapper
 {
     public class MappingsWithReverse : Profile
     {
         public MappingsWithReverse()
         {
-            CreateMap<Question, QuestionResponse>().ReverseMap();
+            CreateMap<QuestionViewModel, QuestionResponse>().ReverseMap();
         }
     }
 }

@@ -10,7 +10,6 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Infrastructure.Data.Context
 
         public EvaluationContext(DbContextOptions<EvaluationContext> options) : base(options)
         {
-            
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -21,7 +20,8 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Infrastructure.Data.Context
             //    .Build();
 
             //optionsBuilder.UseSqlServer(config.GetConnectionString("EvaluationLocalMsSql"));
-            optionsBuilder.UseSqlServer("Server=fva;Database=EvaluationService;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer(
+                "Server=fva;Database=EvaluationService;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

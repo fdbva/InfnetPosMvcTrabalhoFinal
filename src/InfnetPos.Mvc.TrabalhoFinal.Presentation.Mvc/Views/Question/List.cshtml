@@ -1,0 +1,43 @@
+﻿@using InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc.Controllers
+@model IEnumerable<InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc.ViewModels.QuestionViewModel>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h2>List</h2>
+
+<p>
+    <a asp-action="@nameof(QuestionController.Create)">Create New</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", nameof(QuestionController.Edit), new {id = item.Id}) |
+                @Html.ActionLink("Details", nameof(QuestionController.Details), new { id = item.Id }) |
+                @Html.ActionLink("Delete", nameof(QuestionController.Delete), new { id = item.Id })
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,0 +1,33 @@
+﻿@using InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc.Controllers
+@model InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc.ViewModels.QuestionViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>QuestionViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Text)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Text)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+    </dl>
+    
+    <form asp-action="@nameof(QuestionController.Delete)">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="@nameof(QuestionController.Index)">Back to List</a>
+    </form>
+</div>
