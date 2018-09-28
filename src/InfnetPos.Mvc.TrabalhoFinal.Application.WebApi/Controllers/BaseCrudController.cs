@@ -14,10 +14,10 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Application.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BaseCrudController<TIService, TEntity, TEntityViewModel>
+    public class BaseCrudController<TIService, TEntity, TResponse>
         : ControllerBase
         where TEntity : BaseEntity
-        where TEntityViewModel : BaseResponse
+        where TResponse : BaseResponse
         where TIService : IBaseService<TEntity>
     {
         protected TIService BaseService { get; }
@@ -33,17 +33,17 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Application.WebApi.Controllers
 
         // GET api/values
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TEntityViewModel>>> Get()
+        public async Task<ActionResult<IEnumerable<TResponse>>> Get()
         {
             return Mapper1
-                .Map<IEnumerable<TEntityViewModel>>(
+                .Map<IEnumerable<TResponse>>(
                     await BaseService.GetAllAsNoTrackingAsync())
                 .ToList();
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TEntityViewModel>> Get(Guid id)
+        public async Task<ActionResult<TResponse>> Get(Guid id)
         {
             if (!ModelState.IsValid)
             {
@@ -57,36 +57,37 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Application.WebApi.Controllers
                 return NotFound();
             }
 
-            return Ok(Mapper1.Map<TEntityViewModel>(entityViewModel));
+            return Ok(Mapper1.Map<TResponse>(entityViewModel));
         }
 
         // POST api/values
         [HttpPost]
-        public async Task<ActionResult<TEntityViewModel>> Post([FromBody] TEntityViewModel viewModel)
+        public async Task<ActionResult<TResponse>> Post([FromBody] TResponse response)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var ret = BaseService.AddAsync(Mapper1.Map<TEntity>(viewModel));
+            var ret = await BaseService.AddAsync(Mapper1.Map<TEntity>(response));
             await Uow.CommitAsync();
 
-            var retViewModel = Mapper1.Map<TEntityViewModel>(ret);
+            var retViewModel = Mapper1.Map<TResponse>(ret);
 
-            return CreatedAtAction(nameof(Get), new {id = retViewModel.Id}, retViewModel);
+            return Ok(retViewModel);
+            //return CreatedAtAction(nameof(Get), new {id = retViewModel.Id}, retViewModel);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, [FromBody] TEntityViewModel viewModel)
+        public async Task<IActionResult> Put(Guid id, [FromBody] TResponse response)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != viewModel.Id)
+            if (id != response.Id)
             {
                 return BadRequest();
             }
@@ -94,7 +95,7 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Application.WebApi.Controllers
             try
             {
                 Uow.BeginTransaction();
-                BaseService.Update(Mapper1.Map<TEntity>(viewModel));
+                BaseService.Update(Mapper1.Map<TEntity>(response));
                 Uow.Commit();
             }
             catch (DbUpdateException)
@@ -111,6 +112,7 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Application.WebApi.Controllers
         }
 
         // DELETE api/values/5
+        //[HttpDelete]//("{id:guid}")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {

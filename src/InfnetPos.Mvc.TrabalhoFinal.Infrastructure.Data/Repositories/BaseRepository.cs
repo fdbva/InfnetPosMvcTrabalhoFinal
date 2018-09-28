@@ -21,6 +21,8 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Infrastructure.Data.Repositories
 
         public virtual async Task<TEntity> AddAsync(TEntity tEntity)
         {
+            if(tEntity.Id == Guid.Empty)
+                tEntity.Id = Guid.NewGuid();
             var entity = await Set.AddAsync(tEntity);
             return entity.Entity;
         }

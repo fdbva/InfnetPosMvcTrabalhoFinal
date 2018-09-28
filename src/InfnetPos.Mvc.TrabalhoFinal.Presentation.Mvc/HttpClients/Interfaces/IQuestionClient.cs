@@ -9,8 +9,8 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc.HttpClients.Interfaces
     {
         Task<IEnumerable<QuestionResponse>> GetAsync();
         Task<QuestionResponse> GetAsync(Guid id);
-        Task PostAsync(QuestionResponse request);
-        Task PutAsync(Guid id, QuestionResponse request);
+        Task<QuestionResponse> PostAsync(QuestionResponse request);
+        Task<QuestionResponse> PutAsync(Guid id, QuestionResponse request);
         Task DeleteAsync(Guid id);
     }
 }

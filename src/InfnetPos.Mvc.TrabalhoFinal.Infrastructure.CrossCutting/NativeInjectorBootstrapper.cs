@@ -20,7 +20,7 @@ namespace Evaluation.Infrastructure.CrossCutting
             services.AddScoped(typeof(IQuestionRepository), typeof(QuestionRepository));
 
             // 4.1 - Infra.Data
-            services.AddScoped<InfnetPosMvcContext>();
+            services.AddDbContext<InfnetPosMvcContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
