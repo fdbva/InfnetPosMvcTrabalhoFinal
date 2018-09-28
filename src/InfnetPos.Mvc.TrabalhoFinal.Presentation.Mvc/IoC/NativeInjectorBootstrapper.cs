@@ -8,7 +8,8 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc.IoC
     {
         public static void RegisterServices(IServiceCollection services)
         {
-            services.AddScoped(typeof(IQuestionClient), typeof(QuestionClient));
+            //services.AddTransient(typeof(IBaseClient<,>), typeof(BaseClient<,>));
+            //services.AddTransient(typeof(IQuestionClient), typeof(QuestionClient));
         }
     }
 }

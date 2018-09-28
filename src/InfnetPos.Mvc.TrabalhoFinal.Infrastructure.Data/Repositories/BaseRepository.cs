@@ -10,10 +10,10 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Infrastructure.Data.Repositories
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity>, IDisposable where TEntity : BaseEntity
     {
-        protected EvaluationContext Ctx { get; }
+        protected InfnetPosMvcContext Ctx { get; }
         protected DbSet<TEntity> Set { get; }
 
-        public BaseRepository(EvaluationContext context)
+        public BaseRepository(InfnetPosMvcContext context)
         {
             Ctx = context;
             Set = Ctx.Set<TEntity>();

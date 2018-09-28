@@ -7,10 +7,10 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Infrastructure.Data.UoW
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly EvaluationContext _context;
+        private readonly InfnetPosMvcContext _context;
         private bool _disposed;
 
-        public UnitOfWork(EvaluationContext context)
+        public UnitOfWork(InfnetPosMvcContext context)
         {
             _context = context;
         }

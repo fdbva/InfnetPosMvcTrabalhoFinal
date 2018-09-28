@@ -6,7 +6,7 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Infrastructure.Data.Repositories
 {
     public class QuestionRepository : BaseRepository<Question>, IQuestionRepository
     {
-        public QuestionRepository(EvaluationContext context) : base(context)
+        public QuestionRepository(InfnetPosMvcContext context) : base(context)
         {
         }
     }

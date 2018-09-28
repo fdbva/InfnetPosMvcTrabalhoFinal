@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
+using InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc.HttpClients;
 using InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc.HttpClients.Interfaces;
 using InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc.IoC;
+using InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc.ViewModels;
+using InfnetPos.Mvc.TrabalhoFinal.SharedViewModels.ApiResponses;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -32,9 +35,10 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Presentation.Mvc
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            NativeInjectorBootstrapper.RegisterServices(services);
-            services.AddHttpClient<IQuestionClient>();
             services.AddAutoMapper();
+            //services.AddHttpClient<IBaseClient<QuestionResponse, QuestionViewModel>, BaseClient<QuestionResponse, QuestionViewModel>>();
+            services.AddHttpClient<IQuestionClient, QuestionClient>();
+            NativeInjectorBootstrapper.RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

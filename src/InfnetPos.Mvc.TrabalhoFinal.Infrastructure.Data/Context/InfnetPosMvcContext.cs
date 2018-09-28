@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InfnetPos.Mvc.TrabalhoFinal.Infrastructure.Data.Context
 {
-    public class EvaluationContext : DbContext
+    public class InfnetPosMvcContext : DbContext
     {
         public DbSet<Question> Questions { get; set; }
 
-        public EvaluationContext(DbContextOptions<EvaluationContext> options) : base(options)
+        public InfnetPosMvcContext(DbContextOptions options)
+            : base(options)
         {
         }
 
@@ -21,7 +22,7 @@ namespace InfnetPos.Mvc.TrabalhoFinal.Infrastructure.Data.Context
 
             //optionsBuilder.UseSqlServer(config.GetConnectionString("EvaluationLocalMsSql"));
             optionsBuilder.UseSqlServer(
-                "Server=fva;Database=EvaluationService;Trusted_Connection=True;MultipleActiveResultSets=true");
+                "Server=fva;Database=InfnetPosMvc;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
